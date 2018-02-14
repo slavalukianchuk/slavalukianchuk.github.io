@@ -14,6 +14,10 @@ body {
 	overflow-x: hidden;
 }
 
+.qr-code{
+	text-allign: center;	
+}
+
 img {
 	max-width: 100%;
 	height: auto;
