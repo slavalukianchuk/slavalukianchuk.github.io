@@ -14,10 +14,6 @@ body {
 	overflow-x: hidden;
 }
 
-.qr-code{
-	text-allign: center;	
-}
-
 img {
 	max-width: 100%;
 	height: auto;
@@ -522,6 +518,10 @@ textarea.form-control {
 	position: relative;
 	width: 100%;
 	z-index: 998;
+}
+
+.qr-code{
+	text-align: center;
 }
 
 .navbar-custom {
