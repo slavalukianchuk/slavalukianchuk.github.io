@@ -16,7 +16,7 @@
 		/* ---------------------------------------------- */
 
 		$('a[href*=#]').bind("click", function(e){
-           
+
 			var anchor = $(this);
 			$('html, body').stop().animate({
 				scrollTop: $(anchor.attr('href')).offset().top
@@ -45,10 +45,10 @@
 			offset: 70
 		})
 
-        
+
         /* ---------------------------------------------- /*
 		 * Skills
-        /* ---------------------------------------------- */    
+        /* ---------------------------------------------- */
         //var color = $('#home').css('backgroundColor');
 
         $('.skills').waypoint(function(){
@@ -64,12 +64,91 @@
                 });
             });
         },{offset:'80%'});
-        
-        
+
+
+				/* ---------------------------------------------- /*
+			* Slider for imafes BETA
+			/* ---------------------------------------------- */
+			var slideNow = 1;
+			var slideCount = $('#slidewrapper').children().length;
+			var slideInterval = 3000;
+			var navBtnId = 0;
+			var translateWidth = 0;
+
+			$(document).ready(function() {
+			    var switchInterval = setInterval(nextSlide, slideInterval);
+
+			    $('#viewport').hover(function() {
+			        clearInterval(switchInterval);
+			    }, function() {
+			        switchInterval = setInterval(nextSlide, slideInterval);
+			    });
+
+			    $('#next-btn').click(function() {
+			        nextSlide();
+			    });
+
+			    $('#prev-btn').click(function() {
+			        prevSlide();
+			    });
+
+			    $('.slide-nav-btn').click(function() {
+			        navBtnId = $(this).index();
+
+			        if (navBtnId + 1 != slideNow) {
+			            translateWidth = -$('#viewport').width() * (navBtnId);
+			            $('#slidewrapper').css({
+			                'transform': 'translate(' + translateWidth + 'px, 0)',
+			                '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+			                '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+			            });
+			            slideNow = navBtnId + 1;
+			        }
+			    });
+			});
+
+
+			function nextSlide() {
+			    if (slideNow == slideCount || slideNow <= 0 || slideNow > slideCount) {
+			        $('#slidewrapper').css('transform', 'translate(0, 0)');
+			        slideNow = 1;
+			    } else {
+			        translateWidth = -$('#viewport').width() * (slideNow);
+			        $('#slidewrapper').css({
+			            'transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+			        });
+			        slideNow++;
+			    }
+			}
+
+			function prevSlide() {
+			    if (slideNow == 1 || slideNow <= 0 || slideNow > slideCount) {
+			        translateWidth = -$('#viewport').width() * (slideCount - 1);
+			        $('#slidewrapper').css({
+			            'transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+			        });
+			        slideNow = slideCount;
+			    } else {
+			        translateWidth = -$('#viewport').width() * (slideNow - 2);
+			        $('#slidewrapper').css({
+			            'transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+			            '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+			        });
+			        slideNow--;
+			    }
+			}
+
         /* ---------------------------------------------- /*
 		 * Quote Rotator
 		/* ---------------------------------------------- */
-       
+
+
+
 			$( function() {
 				/*
 				- how to call the plugin:
@@ -90,8 +169,8 @@
 				$( '#cbp-qtrotator' ).cbpQTRotator();
 
 			} );
-		
-        
+
+
 		/* ---------------------------------------------- /*
 		 * Home BG
 		/* ---------------------------------------------- */
@@ -140,7 +219,7 @@
 			var c_email = $('#c_email').val();
 			var c_message = $('#c_message ').val();
 			var response = $('#contact-form .ajax-response');
-			
+
 			var formData = {
 				'name'       : c_name,
 				'email'      : c_email,
@@ -164,7 +243,7 @@
 											response.html(ret.message).fadeIn(500);
 							}
 						});
-				}           
+				}
             	return false;
 			});
 
